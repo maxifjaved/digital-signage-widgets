@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Widget builds
+public/widgets/
+public/widgets/widget.iife.js
