@@ -1,55 +1,43 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import { ClockWidget } from '@/components/widgets/clock/ClockWidget'
+// Only import what we need
+import { createElement } from 'react'
+import { createRoot } from 'react-dom/client'
 
-interface WidgetConfig {
-  type: string
-  config?: any
-  customUI?: React.ComponentType<any>
-  containerId?: string
+interface TimeConfig {
+  format24Hour?: boolean
+  showSeconds?: boolean
 }
 
-class WidgetLoader {
-  private static widgets = {
-    clock: ClockWidget,
-    // Add more widgets here
-  }
+const ClockWidget = ({ config = {} }: { config: TimeConfig }) => {
+  const { format24Hour = false, showSeconds = true } = config
+  const time = new Date()
+  const hours = format24Hour ? time.getHours() : time.getHours() % 12 || 12
+  const minutes = time.getMinutes().toString().padStart(2, '0')
+  const seconds = time.getSeconds().toString().padStart(2, '0')
+  const ampm = format24Hour ? '' : time.getHours() >= 12 ? ' PM' : ' AM'
+  
+  return createElement('div', { 
+    className: 'widget-clock',
+    style: { fontFamily: 'monospace', fontSize: '24px' }
+  }, `${hours}:${minutes}${showSeconds ? ':' + seconds : ''}${ampm}`)
+}
 
-  static initialize(options: WidgetConfig) {
-    const {
-      type,
-      config = {},
-      customUI = null,
-      containerId = 'widget-container'
-    } = options
+const widgets = {
+  clock: ClockWidget,
+}
 
-    const container = document.getElementById(containerId)
-    if (!container) {
-      console.error(`Container with id "${containerId}" not found`)
-      return
-    }
-
-    const WidgetComponent = this.widgets[type]
-    if (!WidgetComponent) {
-      console.error(`Widget type "${type}" not found`)
-      return
-    }
-
-    const root = ReactDOM.createRoot(container)
-    root.render(
-      React.createElement(WidgetComponent, {
-        config,
-        CustomUI: customUI
-      })
-    )
-  }
+// Minimal initialize function
+function initializeWidget({ type, containerId = 'widget-container', config = {} }) {
+  const container = document.getElementById(containerId)
+  if (!container) return
+  
+  const Widget = widgets[type]
+  if (!Widget) return
+  
+  const root = createRoot(container)
+  setInterval(() => {
+    root.render(createElement(Widget, { config }))
+  }, 1000)
 }
 
 // Make it available globally
-declare global {
-  interface Window {
-    initializeWidget: typeof WidgetLoader.initialize
-  }
-}
-
-window.initializeWidget = WidgetLoader.initialize.bind(WidgetLoader)
+window.initializeWidget = initializeWidget

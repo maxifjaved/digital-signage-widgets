@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Widget Test</title>
+  <style>
+    .widget-clock {
+      padding: 20px;
+      background: #f0f0f0;
+      border-radius: 8px;
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+  <div id="clock-1"></div>
+
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="/widgets/widget.iife.js"></script>
+  <script>
+    initializeWidget({
+      type: 'clock',
+      containerId: 'clock-1',
+      config: {
+        format24Hour: true,
+        showSeconds: true
+      }
+    });
+  </script>
+</body>
+</html>
