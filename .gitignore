@@ -26,3 +26,4 @@ dist-ssr
 # Widget builds
 public/widgets/
 public/widgets/widget.iife.js
+oy-wc-dist

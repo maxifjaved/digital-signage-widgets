@@ -1,0 +1,9 @@
+{
+    "name": "@oy-wc/digital-clock",
+    "version": "1.0.0",
+    "main": "index.js",
+    "type": "module",
+    "description": "A customizable digital clock web component",
+    "keywords": ["widget", "clock", "web-component"],
+    "author": "Muhammad Asif Javed"
+  }

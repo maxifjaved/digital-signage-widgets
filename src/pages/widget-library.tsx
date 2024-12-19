@@ -28,6 +28,9 @@ export default function WidgetLibrary() {
         </Link>
       </div>
 
+      <digital-clock></digital-clock>
+
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {widgets.map((widget) => (
           <Card key={widget.id}>

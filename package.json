@@ -5,10 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "npm run build:widget && vite build",
+    "build": "node oy-wc/build.js && vite build",
     "lint": "eslint .",
-    "preview": "vite preview",
-    "build:widget": "vite build --config vite.config.widget.ts"
+    "preview": "vite preview"
   },
   "dependencies": {
     "@radix-ui/react-checkbox": "^1.1.3",
@@ -20,6 +19,7 @@
     "@radix-ui/react-toast": "^1.2.4",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "esbuild": "^0.24.0",
     "lucide-react": "^0.468.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
